@@ -87,3 +87,4 @@ echo 'gROOT->ProcessLine(".L ReadHadronHitNtuple.cpp"); ReadHadronHitNtuple_FD()
 ## Run on Grid
 
 See instructions under the Documentation branch -> SubmitHadronGeoEff
+
