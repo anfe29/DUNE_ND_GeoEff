@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ndgeoeff"
+version = "0.1.0"
+description = "DUNE ND geometric-efficiency and Etrim/PRISM analysis tools"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "numpy",
+  "scipy",
+  "torch",
+  "uproot",
+  "uproot3",
+  "uproot4",
+]
+
+[project.scripts]
+ndgeoeff-nd = "ndgeoeff.step2_muon.make_tree_nd:main"
+ndgeoeff-fd = "ndgeoeff.step2_muon.make_tree_fd:main"
+
+[tool.setuptools]
+package-dir = {"" = "python"}
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[tool.setuptools.package-data]
+"ndgeoeff.step2_muon" = ["assets/*.nn"]

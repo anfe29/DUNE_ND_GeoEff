@@ -62,9 +62,9 @@ More details about each individual steps:
 
 The code for this step can be found on the ```master``` branch of this repository: https://github.com/icaracas/DUNE_ND_GeoEff/
 
-  - the main code of interest is in ```app/runGeoEffFDEvtSim.cpp```
+  - the main code of interest is in ```apps/step1_hadron_geoeff/runGeoEffFDEvtSim.cpp```
   
-  - header with various dimensions and variables / constants definition is at ```app/Helpers.h```
+  - header with various dimensions and variables / constants definition is at ```apps/step1_hadron_geoeff/Helpers.h```
 
   - file with most of the geometric efficiency coded functions is at  ```src/geoEff.cpp```
 
@@ -172,7 +172,7 @@ More variables (than the ones enumerated here) are written in the output file, b
 
 The code for this step can be found on the ```MuonCode``` branch of this repository: https://github.com/icaracas/DUNE_ND_GeoEff/
   
-  - the main code of interest is in ```code/FD_maketree.py``` 
+  - the main code of interest is in ```python/ndgeoeff/step2_muon/make_tree_fd.py```
 
 The code itself is based on Flynn's previous work but has several additions / changes. However the NN part has not been touched - don't have more details regarding to how this one works..
  ## Big picture 
@@ -286,7 +286,7 @@ As a result of running the muon efficiency part an output file, i.e `OutputMuonF
 
 The code for this step can be found on the ```EtrimAnalysis``` branch of this repository: https://github.com/icaracas/DUNE_ND_GeoEff/ . 
 
-The 2 main files of interest are: ```Grid/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND.C``` and ```Grid/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND.C```
+The 2 main files of interest are: ```apps/step3_etrim_analysis/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND.C``` and ```apps/step3_etrim_analysis/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND.C```
 The difference between those 2 files are whether one wants to work with the oscillated spectrum or with the non-oscillated one -- codes are very similar but will try to highlight the main differences below.
 
 This part is using information obtained from the hadron geoemtric efficiency and muon geometric efficiency parts and puts it together towards the final desired distribution of selected FD events in the ND. 

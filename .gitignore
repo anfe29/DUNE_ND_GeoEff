@@ -1,0 +1,26 @@
+# Build directories
+/build/
+/build-*/
+/apps/step1_hadron_geoeff/EDepSimEvents/
+/apps/step3_etrim_analysis/*.o
+/apps/step3_etrim_analysis/Calcs/*.o
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Local outputs
+Output_FDGeoEff.root
+Output_NDGeoEff.root
+FileWithHistEtrim_*.root
+EtrimHistosFile_*.root
+FDHadronGeoEff_*.root
+NDGeoEff_*.root
+FDGeoEff_*.root
+
+# Logs
+*.log

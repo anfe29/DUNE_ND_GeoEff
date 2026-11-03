@@ -1,90 +1,149 @@
-# Instruction for running translation and rotations on FD n-tuples
+# DUNE ND Geometric Efficiency and Etrim/PRISM Analysis
 
-Prerequisite: [Produce Ntuple from DUNE FD MC files](https://github.com/weishi10141993/myntuples#produce-ntuple-from-dune-fd-mc-files). The produced FD n-tuples will be used as input files for the following program to run. (Flynn Guo has previously made ntuple files to use, which can be located here: /pnfs/dune/persistent/users/flynnguo/myFDntuples)
+This repository contains the three-stage DUNE ND geometric-efficiency workflow:
 
+1. **Step 1 — hadron geometric efficiency** (`apps/step1_hadron_geoeff/`)
+2. **Step 2 — muon/combined efficiency** (`python/ndgeoeff/step2_muon/`)
+3. **Step 3 — Etrim/PRISM event-rate analysis** (`apps/step3_etrim_analysis/`)
 
-Open SL7 container:
-```
-/cvmfs/oasis.opensciencegrid.org/mis/apptainer/current/bin/apptainer shell --shell=/bin/bash \
--B /cvmfs,/exp,/nashome,/pnfs/dune,/opt,/run/user,/etc/hostname,/etc/hosts,/etc/krb5.conf --ipc --pid \
-/cvmfs/singularity.opensciencegrid.org/fermilab/fnal-dev-sl7:latest
-```
+The layout is language-oriented. C++ sources live under `src/`, `include/`, and
+`apps/`; Python code lives under `python/ndgeoeff/`; ROOT macros live under
+`macros/`; operational scripts live under `scripts/`; and step 3 data lives under
+`data/step3/`.
 
-[First time only]
-```
-cd /exp/dune/app/users/$USER
-mkdir NDEff (first time only)
-cd NDEff
-git clone -b master https://github.com/AllisonSchroeder/DUNE_ND_GeoEff.git      # Get geoEff library
-cd DUNE_ND_GeoEff
-source setup.sh                                                                                    # Necessary setups for build
-cmake -DCMAKE_CXX_STANDARD=17 -DPYTHON_EXECUTABLE:FILEPATH=`which python` .                        # -DCMAKE_CXX_STANDARD=17 for running with root 6.28.10
-make -j geoEff                                                                                     # Build geoEff (can also use: make -j pyGeoEff)
-```
+## Environment
 
-To (re)compile
-```
-cd /exp/dune/app/users/$USER/NDEff/DUNE_ND_GeoEff/
-#
-# In case you log out, need to source setup.sh to setup ROOT
-#
-source setup.sh         
+For steps 1 and 2, from the repository root:
 
-# Compile program
-cd app
-make runGeoEffFDEvtSim                                                                       
-```
-
-To (re)run program,
-```
-cd ../bin
-# Usage: ./runGeoEffFDEvtSim inputFDntuple
-# for example: 
-./runGeoEffFDEvtSim /exp/dune/app/users/alschroe/NDEff_New/DUNE_ND_GeoEff/myntuple_53993115_5466.root
-```
-this will produce a root file containing throws and the hadron throw result.
-
-If the source files in src are changed, recompile:
-
-```
+```bash
 source setup.sh
-cmake -DPYTHON_EXECUTABLE:FILEPATH=`which python` .
-make -j geoEff    
 ```
 
-Tips on DUNE FNAL machines: if want to run interactively for longer time even when terminal connection is lost, use screen option:
+This sets up CMake, GCC, Eigen, ROOT 6.28, and Python 3. Set
+`NDGEOEFF_PYTHON_VERSION` before sourcing if your DUNE release needs a different
+Python 3 version.
 
+For step 3, use the ROOT 6.28 + OscLib environment instead:
+
+```bash
+source scripts/env/setup_step3.sh
 ```
-screen
-# do the enviroment setup, in this case: source setup.sh
-nohup ./runGeoEffFDEvtSim >& out_throws_nohup.log &                                                # Check status: jobs -l
-# To detach from the screen session, press Ctrl+a (release) and then d to detach the process/screen.
-# To resume detached process, use: screen -r
-# 10k evts: 6.20pm start, end second day 4:52am, 10hrs32mins
+
+## Build
+
+Steps 1 and 2 (library and hadron-efficiency apps):
+
+```bash
+cmake -S . -B build -DNDGEOEFF_BUILD_STEP3=OFF
+cmake --build build -j
 ```
 
-## Instruction for calculate FD event efficiency
+The executables are placed in `build/bin/` and the libraries in `build/lib/`.
 
-The output root file from running ```runGeoEffFDEvtSim``` can be used to calculate FD event hadron containment efficiency by running:
+The optional `pyGeoEff` Python bindings are disabled by default. Enable them with
+`-DNDGEOEFF_BUILD_PYTHON=ON`; this requires a pybind11 version that supports your
+Python (pybind11 >= 2.10 for Python >= 3.11).
 
+Step 3 (requires ROOT and OscLib):
+
+```bash
+source scripts/env/setup_step3.sh
+cmake -S . -B build-step3 \
+  -DNDGEOEFF_BUILD_STEP1=OFF \
+  -DNDGEOEFF_BUILD_STEP3=ON \
+  -DNDGEOEFF_BUILD_PYTHON=OFF
+cmake --build build-step3 -j
 ```
-cd /exp/dune/app/users/$USER/NDEff/DUNE_ND_GeoEff
+
+The original `apps/step3_etrim_analysis/Makefile` is kept as a fallback.
+
+## Step 1 — hadron geometric efficiency
+
+```bash
 source setup.sh
-cd app
-root -l -b -q FDEffCalc.C
-# 5k evts: 10mins
+cmake -S . -B build -DNDGEOEFF_BUILD_STEP3=OFF
+cmake --build build --target runGeoEffFDEvtSim -j
+
+build/bin/runGeoEffFDEvtSim /path/to/inputFDntuple.root
 ```
 
-The output root file from running ```runGeoEffFDEvtSim``` can also be used for lepton NN training.
+This writes `Output_FDGeoEff.root` in the current directory.
 
-## Event displays
+To calculate the FD hadron containment efficiency from that output:
 
-The hadronic hits can be plotted in 2D event displays at FD via:
+```bash
+root -l -b -q macros/step1_hadron/FDEffCalc.C
 ```
-echo 'gROOT->ProcessLine(".L ReadHadronHitNtuple.cpp"); ReadHadronHitNtuple_FD()'| root -l -b
+
+Grid submission scripts are in `scripts/step1_hadron/`.
+
+## Step 2 — muon/combined efficiency
+
+Install the Python dependencies if needed (`numpy`, `scipy`, `torch`, `uproot`,
+`uproot3`, `uproot4`), or use the grid setup scripts. From the repository root:
+
+```bash
+source scripts/env/setup_step2.sh
+
+PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_nd /path/to/ND.CAF.root
+PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_fd /path/to/FD.CAF.root
 ```
 
-## Run on Grid
+The ND script writes `Output_NDGeoEff.root`; the FD script writes
+`Output_FDGeoEff.root`. The trained network is bundled at
+`python/ndgeoeff/step2_muon/assets/muonEff30.nn`.
 
-See instructions under the Documentation branch -> SubmitHadronGeoEff
+Convenience wrapper:
 
+```bash
+scripts/step2_muon/run_local.sh nd /path/to/ND.CAF.root
+scripts/step2_muon/run_local.sh fd /path/to/FD.CAF.root
+```
+
+Grid and Slurm scripts are in `scripts/step2_muon/`.
+
+## Step 3 — Etrim/PRISM analysis
+
+Step 3 reads and writes several files by relative name. Run it from
+`data/step3/`, or use the wrapper, which changes into that directory:
+
+```bash
+source scripts/env/setup_step3.sh
+cmake -S . -B build-step3 \
+  -DNDGEOEFF_BUILD_STEP1=OFF \
+  -DNDGEOEFF_BUILD_STEP3=ON \
+  -DNDGEOEFF_BUILD_PYTHON=OFF
+cmake --build build-step3 -j
+
+scripts/step3_etrim/run_local.sh \
+  NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND \
+  /path/to/OutputHadronGeoEff.root /path/to/OutputFDGeoEff.root
+```
+
+Available executables:
+
+- `NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND`
+- `NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND`
+- `NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND`
+
+Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are in
+`scripts/step3_etrim/`.
+
+## Tests
+
+```bash
+PYTHONPATH=python python3 -m pytest tests/unit
+```
+
+See `tests/integration/README.md` for the full three-stage smoke-test procedure.
+
+## Legacy files
+
+Duplicated and experimental files from the previous layout are preserved under
+`legacy/`. They are not part of the supported build.
+
+## Additional documentation
+
+The detailed physics workflow is described in `doc/README.md`. Stage-specific
+notes are in `scripts/step1_hadron/README.md`,
+`scripts/step2_muon/README.md`, and `scripts/step3_etrim/README.md`.
