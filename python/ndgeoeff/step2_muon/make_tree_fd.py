@@ -12,7 +12,7 @@ import sys
 
 import torch
 try:
-    from .muon_eff_model import muonEffModel
+    from muon_eff_model import muonEffModel
 except ImportError:
     from muon_eff_model import muonEffModel
 from os.path import splitext, basename#, exists
@@ -209,10 +209,10 @@ def processFiles(f):
                 if FV_cut: NthrowsInFV=sum(throws_FV) #Count how many throws were in the FV. Will be useful later.
                 else: NthrowsInFV=4096 #If you don't use the FV, then all throws should be included. #There are 64*64=4096 throws in total.
                 if NthrowsInFV==0 and FV_cut:
-                    effs.back().push_back(-1.)
-                    effs_tracker.back().push_back(-1.)
-                    effs_contained.back().push_back(-1.)
-                    effs_combined.back().push_back(-1.)
+                    effs.push_back(-1.)
+                    effs_tracker.push_back(-1.)
+                    effs_contained.push_back(-1.)
+                    effs_combined.push_back(-1.)
                     continue
 
                 # if (det_pos==14): print("throw #; y pos (cm); z pos (cm); throw rotation angle (rad); contained eff; tracker eff; z-momentum (GeV/c)")
