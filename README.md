@@ -75,7 +75,7 @@ To calculate the FD hadron containment efficiency from that output:
 root -l -b -q macros/step1_hadron/FDEffCalc.C
 ```
 
-Grid submission scripts are in `scripts/step1_hadron/`.
+Grid submission scripts can be found [here](scripts/step1_hadron/).
 
 ## Step 2 — muon/combined efficiency
 
@@ -93,14 +93,7 @@ The ND script writes `Output_NDGeoEff.root`; the FD script writes
 `Output_FDGeoEff.root`. The trained network is bundled at
 `python/ndgeoeff/step2_muon/assets/muonEff30.nn`.
 
-Convenience wrapper:
-
-```bash
-scripts/step2_muon/run_local.sh nd /path/to/ND.CAF.root
-scripts/step2_muon/run_local.sh fd /path/to/FD.CAF.root
-```
-
-Grid and Slurm scripts are in `scripts/step2_muon/`.
+Grid and Slurm scripts are located [here](scripts/step2_muon/).
 
 ## Step 3 — Etrim/PRISM analysis
 
@@ -144,6 +137,6 @@ Duplicated and experimental files from the previous layout are preserved under
 
 ## Additional documentation
 
-The detailed physics workflow is described in `doc/README.md`. Stage-specific
-notes are in `scripts/step1_hadron/README.md`,
-`scripts/step2_muon/README.md`, and `scripts/step3_etrim/README.md`.
+The detailed physics workflow written by Ionna is described in [documentation](doc/README.md). Stage-specific legacy grid submission
+notes are in [Step1](scripts/step1_hadron/README.md),
+[Step2](scripts/step2_muon/README.md), and [Step3](scripts/step3_etrim/README.md).
