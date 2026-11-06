@@ -142,8 +142,10 @@ cmake -S . -B build-step3 \
   -DNDGEOEFF_BUILD_STEP3=ON \
   -DNDGEOEFF_BUILD_PYTHON=OFF
 cmake --build build-step3 -j
+```
 
 Assuming equal effect on all off-axis positions, run with:
+ 
 ```bash
 ./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
