@@ -4,6 +4,7 @@
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 
+setup cmake v3_19_6
 setup root v6_28_12 -q e26:prof:p3915
 setup boost v1_82_0 -qdebug:e26
 setup eigen v23_08_01_66e8f
