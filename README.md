@@ -144,7 +144,7 @@ cmake -S . -B build-step3 \
 cmake --build build-step3 -j
 ```
 
-Assuming equal effect on all off-axis positions, run with:
+Assuming equal effect on all off-axis positions (this might be depreciated), run with:
  
 ```bash
 ./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
@@ -158,14 +158,6 @@ Or with osccillations:
 With all off-axis positions:
 ```bash
 ./NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
-```
-
-Alternatively, with a wrapper:
-
-```bash
-scripts/step3_etrim/run_local.sh \
-  NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND \
-  /path/to/OutputHadronGeoEff.root /path/to/OutputFDGeoEff.root
 ```
 
 Available executables:
