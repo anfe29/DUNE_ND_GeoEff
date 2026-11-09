@@ -23,12 +23,15 @@ pwd
 # which can't be done in the CVMFS read-only version
 ##echo "git clone --recurse-submodules -b FD_Wei https://github.com/FlynnYGUO/DUNE_ND_GeoEff.git "
 ##git clone --recurse-submodules -b FD_Wei https://github.com/FlynnYGUO/DUNE_ND_GeoEff.git
-echo "git clone --recurse-submodules -b master https://github.com/icaracas/DUNE_ND_GeoEff.git "
-git clone --recurse-submodules -b master https://github.com/icaracas/DUNE_ND_GeoEff.git
+#echo "git clone --recurse-submodules -b master https://github.com/icaracas/DUNE_ND_GeoEff.git "
+#git clone --recurse-submodules -b master https://github.com/icaracas/DUNE_ND_GeoEff.git
+# If no clone then copy tarball contents
+echo "Moving contents of tarball to: ${_CONDOR_JOB_IWD}"
+cp -r ${INPUT_TAR_DIR_LOCAL}/* ${_CONDOR_JOB_IWD}
 echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff"
 cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 echo "source setup.sh"
-source setup.sh
+source scripts/env/setup_step1.sh
 # 1️⃣ Point to the GCC 9.3 compiler explicitly
 export CC=/cvmfs/larsoft.opensciencegrid.org/products/gcc/v9_3_0/Linux64bit+3.10-2.17/bin/gcc
 export CXX=/cvmfs/larsoft.opensciencegrid.org/products/gcc/v9_3_0/Linux64bit+3.10-2.17/bin/g++
