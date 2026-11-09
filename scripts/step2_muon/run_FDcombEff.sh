@@ -4,7 +4,7 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/myFDntuples
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/FDGeoEffinND/MuonEff/Resub
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/FDGeoEffinND/MuonEff
 
 # Make sure we see what we expect
 echo "See where are at: pwd" # this normally is _CONDOR_JOB_IWD
@@ -34,32 +34,40 @@ echo "cd _CONDOR_JOB_IWD: ${_CONDOR_JOB_IWD}"
 cd ${_CONDOR_JOB_IWD}
 
 echo "Install dependencies"
-echo "pip3 install --target=${_CONDOR_JOB_IWD} numpy==1.26.1"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1
-echo "pip3 install --target=${_CONDOR_JOB_IWD} uproot"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} uproot==5.1.2
+echo "pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1"
+pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1
+echo "pip install --target=${_CONDOR_JOB_IWD} uproot"
+pip install --target=${_CONDOR_JOB_IWD} uproot==5.1.2
 # echo "pip install --target=${_CONDOR_JOB_IWD} uproot4"
 # pip install --target=${_CONDOR_JOB_IWD} uproot4
 # echo "pip install --target=${_CONDOR_JOB_IWD} uproot3"
 # pip install --target=${_CONDOR_JOB_IWD} uproot3
-echo "/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} torch"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} torch
+echo "pip install --target=${_CONDOR_JOB_IWD} torch"
+pip install --target=${_CONDOR_JOB_IWD} torch
 
-echo "pip3 install --target=${_CONDOR_JOB_IWD} scipy==1.11.3"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3
+echo "pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3"
+pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3
 
 echo "python version: "
 python --version
 python -c "import numpy; import scipy; print(numpy.__version__, scipy.__version__)"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip show uproot
+pip show uproot
 
 export PYTHONPATH=${_CONDOR_JOB_IWD}:$PYTHONPATH
+echo "which root"
+which root
 
 echo "ls -l _CONDOR_JOB_IWD"
 ls -l ${_CONDOR_JOB_IWD}
 
-# Use the migrated Python package from the untarred repository
-export PYTHONPATH=${INPUT_TAR_DIR_LOCAL}/python:${_CONDOR_JOB_IWD}:$PYTHONPATH
+# Symlink the desired file to the current directory
+ln -s ${INPUT_TAR_DIR_LOCAL}/FD_maketree.py .
+ln -s ${INPUT_TAR_DIR_LOCAL}/muonEff30.nn .
+ln -s ${INPUT_TAR_DIR_LOCAL}/muonEffModel.py .
+#echo "Did the symlink"
+
+
+setup ifdhc
 
 # Set some other very useful environment variables for xrootd and IFDH
 export IFDH_CP_MAXRETRIES=2
@@ -104,8 +112,8 @@ ifdh cp -D $myinfile ${_CONDOR_JOB_IWD}
 echo "ls -l _CONDOR_JOB_IWD"
 ls -l ${_CONDOR_JOB_IWD}
 
-echo "python3 -m ndgeoeff.step2_muon.make_tree_fd ./*.root"
-/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/python3 -m ndgeoeff.step2_muon.make_tree_fd ./*.root
+echo "python3 make_tree_fd.py ./*.root"
+python3 make_tree_fd.py ./*.root
 LAR_RESULT=$?   # check the exit status!!!
 
 if [ $LAR_RESULT -ne 0 ]; then
