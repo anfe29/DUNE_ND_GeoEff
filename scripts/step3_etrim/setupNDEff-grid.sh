@@ -21,13 +21,22 @@ pwd
 # Copy the untarred folder and remove the CVMFS linked read-only version
 # because recompile need to modify files
 # which can't be done in the CVMFS read-only version
-echo "git clone --recurse-submodules -b EtrimAnalysis https://github.com/icaracas/DUNE_ND_GeoEff.git "
-git clone --recurse-submodules -b EtrimAnalysis https://github.com/icaracas/DUNE_ND_GeoEff.git
-echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff"
+#echo "git clone --recurse-submodules -b EtrimAnalysis https://github.com/icaracas/DUNE_ND_GeoEff.git "
+#git clone --recurse-submodules -b EtrimAnalysis https://github.com/icaracas/DUNE_ND_GeoEff.git
+#echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff"
+#cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
+echo "Moving contents of tarball to: ${_CONDOR_JOB_IWD}"
+cp -r ${INPUT_TAR_DIR_LOCAL}/* ${_CONDOR_JOB_IWD}
+echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff/Grid"
 cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 echo "source scripts/env/setup_step3.sh"
 source scripts/env/setup_step3.sh
-echo "cmake -S . -B build -DNDGEOEFF_BUILD_STEP1=OFF -DNDGEOEFF_BUILD_STEP3=ON -DNDGEOEFF_BUILD_PYTHON=OFF"
+#echo "cmake -DPYTHON_EXECUTABLE:FILEPATH=`which python` ."
+#cmake -DPYTHON_EXECUTABLE:FILEPATH=`which python` .
+# echo "make -j geoEff"
+# make -j geoEff
+
+
+echo "building Etrim analysis with CMake"
 cmake -S . -B build -DNDGEOEFF_BUILD_STEP1=OFF -DNDGEOEFF_BUILD_STEP3=ON -DNDGEOEFF_BUILD_PYTHON=OFF
-echo "cmake --build build --target NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND -j"
-cmake --build build --target NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND -j
+cmake --build build -j

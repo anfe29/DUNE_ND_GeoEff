@@ -4,7 +4,8 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/FDGeoEffinND
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/OscSpectrumNonNegativeEvRateVals
+#OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/OscSpectrumNonNegativeEvRateVals
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/FDGeoEffinND/EtrimAllPos/Osc
 
 # Make sure we see what we expect
 echo "See where are at: pwd"
@@ -83,18 +84,14 @@ echo "Got input file mu: $myinfilemu"
 # Run program
 REPO=${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 BIN=${REPO}/build/bin
-echo "cd ${REPO}/data/step3"
-cd ${REPO}/data/step3
-echo "ls -l ${REPO}/data/step3"
-ls -l ${REPO}/data/step3
-echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
-${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
+echo "${BIN}/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
+${BIN}/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
-echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
-#echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
-#${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
+echo "Finish ./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
+#echo "./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
+#./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
-#echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
+#echo "Finish ./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
 
 # Unique name in case we send multiple jobs.
 #OUTFILE=EtrimHistosFile_CoeffsOsc_OAPosSameAsCAFs_MuonCombined_VisEtrim_FDEvRateAtND_NDFV4m_CorrectCombinedEffScaled_AddMuMass_${CLUSTER}_${PROCESS}.root

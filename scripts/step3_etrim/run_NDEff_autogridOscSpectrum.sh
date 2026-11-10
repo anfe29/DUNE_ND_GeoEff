@@ -4,7 +4,7 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/FDGeoEffinND
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/NoOsc
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/OscSpectrumNonNegativeEvRateVals
 
 # Make sure we see what we expect
 echo "See where are at: pwd"
@@ -83,14 +83,10 @@ echo "Got input file mu: $myinfilemu"
 # Run program
 REPO=${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 BIN=${REPO}/build/bin
-echo "cd ${REPO}/data/step3"
-cd ${REPO}/data/step3
-echo "ls -l ${REPO}/data/step3"
-ls -l ${REPO}/data/step3
-echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
-${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
+echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
+${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
-echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND"
+echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
 #echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
 #${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
@@ -99,11 +95,11 @@ echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOC
 # Unique name in case we send multiple jobs.
 #OUTFILE=EtrimHistosFile_CoeffsOsc_OAPosSameAsCAFs_MuonCombined_VisEtrim_FDEvRateAtND_NDFV4m_CorrectCombinedEffScaled_AddMuMass_${CLUSTER}_${PROCESS}.root
 
-OUTFILE=FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_${CLUSTER}_${PROCESS}.root
-if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root ]; then
+OUTFILE=FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtNDFromEtrue_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_${CLUSTER}_${PROCESS}.root
+if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root ]; then
 
-  echo "mv FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root $OUTFILE"
-  mv FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root $OUTFILE
+  echo "mv FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root $OUTFILE"
+  mv FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root $OUTFILE
 
   # and copy our output file back
   ifdh cp -D $OUTFILE $OUTDIR

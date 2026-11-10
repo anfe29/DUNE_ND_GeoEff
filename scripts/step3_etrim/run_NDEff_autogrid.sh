@@ -4,7 +4,7 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/FDGeoEffinND
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/NoOsc
 
 # Make sure we see what we expect
 echo "See where are at: pwd"
@@ -62,32 +62,44 @@ fi
 
 echo "Finished checking outdir: $OUTDIR"
 
-myinfile=""
+myinfilehadron=""
 # PROCESS starts from 0, 1, ... N-1
 (( LINE_N = ${PROCESS} + 1 ))
 
 # Loop over ntuple list in txt file
-for ifile in $(cat ${INPUT_TAR_DIR_LOCAL}/myOutputFDGeoEff.txt | head -${LINE_N} | tail -1); do
-  myinfile=${ifile}
+for ifile in $(cat ${INPUT_TAR_DIR_LOCAL}/myOutputFDGeoEffHadron.txt | head -${LINE_N} | tail -1); do
+  myinfilehadron=${ifile}
 done
 
-echo "Got input file: $myinfile"
+myinfilemu=""
+#loop over ntuples with muon combined 
+for ifile2 in $(cat ${INPUT_TAR_DIR_LOCAL}/myOutputFDGeoEffMu.txt | head -${LINE_N} | tail -1); do
+  myinfilemu=${ifile2}
+done
+
+echo "Got input file hadron: $myinfilehadron"
+echo "Got input file mu: $myinfilemu"
 
 # Run program
 REPO=${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 BIN=${REPO}/build/bin
-echo "cd ${REPO}/data/step3"
-cd ${REPO}/data/step3
-echo "ls -l ${REPO}/data/step3"
-ls -l ${REPO}/data/step3
-echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfile"
-${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfile
+#echo "cd ${REPO}/data/step3"
+#cd ${REPO}/data/step3
+#echo "ls -l ${REPO}/data/step3"
+#ls -l ${REPO}/data/step3
+echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
+${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
-echo "Finish ./NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA"
+echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND"
+#echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
+#${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
+
+#echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
 
 # Unique name in case we send multiple jobs.
-OUTFILE=EtrimHistosFile_OAPosSameAsCAFs_${CLUSTER}_${PROCESS}.root
+#OUTFILE=EtrimHistosFile_CoeffsOsc_OAPosSameAsCAFs_MuonCombined_VisEtrim_FDEvRateAtND_NDFV4m_CorrectCombinedEffScaled_AddMuMass_${CLUSTER}_${PROCESS}.root
 
+OUTFILE=FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_${CLUSTER}_${PROCESS}.root
 if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root ]; then
 
   echo "mv FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoeffsApplied_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root $OUTFILE"
@@ -95,7 +107,8 @@ if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoef
 
   # and copy our output file back
   ifdh cp -D $OUTFILE $OUTDIR
-
+  #cp $OUTFILE $OUTDIR
+  #ls -lhrt $OUTDIR
   # check the exit status to see if the copyback actually worked. Print a message if it did not.
   IFDH_RESULT=$?
   if [ $IFDH_RESULT -ne 0 ]; then
