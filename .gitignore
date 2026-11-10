@@ -23,6 +23,7 @@ EtrimHistosFile_*.root
 FDHadronGeoEff_*.root
 NDGeoEff_*.root
 FDGeoEff_*.root
+*.tar.gz
 
 # Logs
 *.log
