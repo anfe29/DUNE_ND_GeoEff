@@ -29,34 +29,8 @@ For each step, source the appropriate script from `scripts/env/`.
 
 This sets up CMake, GCC, Eigen, ROOT 6.28, and Python 3. 
 
-
-## Build
-
-Steps 1 and 2 (library and hadron-efficiency apps):
-
-```bash
-cmake -S . -B build -DNDGEOEFF_BUILD_STEP3=OFF
-cmake --build build -j
-```
-
-The executables are placed in `build/bin/` and the libraries in `build/lib/`.
-
-The optional `pyGeoEff` Python bindings are disabled by default. Enable them with
-`-DNDGEOEFF_BUILD_PYTHON=ON`; this requires a pybind11 version that supports your
-Python (pybind11 >= 2.10 for Python >= 3.11).
-
-Step 3 (requires ROOT and OscLib):
-
-```bash
-source scripts/env/setup_step3.sh
-cmake -S . -B build-step3 \
-  -DNDGEOEFF_BUILD_STEP1=OFF \
-  -DNDGEOEFF_BUILD_STEP3=ON \
-  -DNDGEOEFF_BUILD_PYTHON=OFF
-cmake --build build-step3 -j
-```
-
-The original `apps/step3_etrim_analysis/Makefile` is kept as a fallback.
+>[!NOTE] 
+>Run every step from an Apptainer with their respective environment scripts for the purpose having a consistent environment for testing and debugging.
 
 ## Step 1 — hadron geometric efficiency
 
@@ -168,13 +142,48 @@ Available executables:
 
 Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here](scripts/step3_etrim/).
 
+## Macros
+
+>[!WARNING] TODO
+>Write READMEs to explain the macros in `macros/`.
+
 ## Tests
+
+>[!WARNING] Under Construction
 
 ```bash
 PYTHONPATH=python python3 -m pytest tests/unit
 ```
 
 See `tests/integration/README.md` for the full three-stage smoke-test procedure.
+
+## Build
+
+Steps 1 and 2 (library and hadron-efficiency apps):
+
+```bash
+cmake -S . -B build -DNDGEOEFF_BUILD_STEP3=OFF
+cmake --build build -j
+```
+
+The executables are placed in `build/bin/` and the libraries in `build/lib/`.
+
+The optional `pyGeoEff` Python bindings are disabled by default. Enable them with
+`-DNDGEOEFF_BUILD_PYTHON=ON`; this requires a pybind11 version that supports your
+Python (pybind11 >= 2.10 for Python >= 3.11).
+
+Step 3 (requires ROOT and OscLib):
+
+```bash
+source scripts/env/setup_step3.sh
+cmake -S . -B build-step3 \
+  -DNDGEOEFF_BUILD_STEP1=OFF \
+  -DNDGEOEFF_BUILD_STEP3=ON \
+  -DNDGEOEFF_BUILD_PYTHON=OFF
+cmake --build build-step3 -j
+```
+
+The original `apps/step3_etrim_analysis/Makefile` is kept as a fallback.
 
 ## Legacy files
 
