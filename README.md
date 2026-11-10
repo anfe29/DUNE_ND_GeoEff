@@ -144,12 +144,14 @@ Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here]
 
 ## Macros
 
->[!WARNING] TODO
+>[!WARNING] 
+>TODO
 >Write READMEs to explain the macros in `macros/`.
 
 ## Tests
 
->[!WARNING] Under Construction
+>[!WARNING] 
+>Under Construction
 
 ```bash
 PYTHONPATH=python python3 -m pytest tests/unit
