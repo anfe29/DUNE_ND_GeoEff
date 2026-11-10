@@ -4,6 +4,7 @@
 /apps/step1_hadron_geoeff/EDepSimEvents/
 /apps/step3_etrim_analysis/*.o
 /apps/step3_etrim_analysis/Calcs/*.o
+AutoDict_*
 
 # Python
 __pycache__/
@@ -12,6 +13,7 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+my_python_env/
 
 # Local outputs
 Output_FDGeoEff.root
@@ -24,3 +26,4 @@ FDGeoEff_*.root
 
 # Logs
 *.log
+*.txt
