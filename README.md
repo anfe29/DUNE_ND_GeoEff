@@ -78,7 +78,7 @@ mkdir my_python_env
 Install the Python dependencies:
 
 ```bash
-pip install numpy==1.26.1 uproot==5.1.2 torch scipy ==1.11.3 --target=$(pwd)/my_python_env
+pip install numpy==1.26.1 uproot==5.1.2 torch scipy==1.11.3 --target=$(pwd)/my_python_env
 ```
 
 Export `PYTHONPATH`:
