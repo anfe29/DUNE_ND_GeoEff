@@ -89,7 +89,7 @@ export PYTHONPATH=$(pwd)/my_python_env:$PYTHONPATH
 
 Run the code with:
 ```bash
-python python/ndgeoff/step2_muon/make_tree_fd.py InputRootFile.root
+python python/ndgeoeff/step2_muon/make_tree_fd.py InputRootFile.root
 ```
 
 The ND script writes `Output_NDGeoEff.root`; the FD script writes
