@@ -78,7 +78,7 @@ mkdir my_python_env
 Install the Python dependencies:
 
 ```bash
-pip install numpy==1.26.1 uproot==5.1.2 torch scipy ==1.11.3 --target=$(pwd)/my_python_env
+pip install numpy==1.26.1 uproot==5.1.2 torch scipy==1.11.3 --target=$(pwd)/my_python_env
 ```
 
 Export `PYTHONPATH`:
@@ -89,7 +89,7 @@ export PYTHONPATH=$(pwd)/my_python_env:$PYTHONPATH
 
 Run the code with:
 ```bash
-python python/ndgeoff/step2_muon/make_tree_fd.py InputRootFile.root
+python python/ndgeoeff/step2_muon/make_tree_fd.py InputRootFile.root
 ```
 
 The ND script writes `Output_NDGeoEff.root`; the FD script writes
