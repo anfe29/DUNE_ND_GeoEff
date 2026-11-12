@@ -17,7 +17,7 @@ Where this command changes the path so that the worker node can access the files
 Make tarball:
 
 ```bash
-tar -czvf FD_work.tar.gz setup_FDcombEff.sh make_tree_fd.py muonEff30.nn muon_eff_model.py FDCAFs.txt
+tar -czvf FD_work.tar.gz setup_FDcombEff.sh make_tree_fd.py assets muon_eff_model.py FDCAFs.txt
 ```
 
 >[!NOTE]
