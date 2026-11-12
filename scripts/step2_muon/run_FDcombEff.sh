@@ -4,7 +4,8 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/myFDntuples
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/FDGeoEffinND/MuonEff
+#OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/FDGeoEffinND/MuonEff
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/output_test
 
 # Make sure we see what we expect
 echo "See where are at: pwd" # this normally is _CONDOR_JOB_IWD
@@ -19,9 +20,9 @@ ls -l $CONDOR_DIR_INPUT
 echo "ls -l INPUT_TAR_DIR_LOCAL: ${INPUT_TAR_DIR_LOCAL} (should see untarred files)"
 ls -l $INPUT_TAR_DIR_LOCAL
 
-if [ -e ${INPUT_TAR_DIR_LOCAL}/setup_NDcombEff.sh ]; then
-  echo "Start to run setup_NDcombEff.sh"
-  . ${INPUT_TAR_DIR_LOCAL}/setup_NDcombEff.sh
+if [ -e ${INPUT_TAR_DIR_LOCAL}/setup_FDcombEff.sh ]; then
+  echo "Start to run setup_FDcombEff.sh"
+  . ${INPUT_TAR_DIR_LOCAL}/setup_FDcombEff.sh
 else
   echo "Error, setup script not found. Exiting."
   exit 1
@@ -35,18 +36,18 @@ cd ${_CONDOR_JOB_IWD}
 
 echo "Install dependencies"
 echo "pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1"
-pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1
+/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} numpy==1.26.1
 echo "pip install --target=${_CONDOR_JOB_IWD} uproot"
-pip install --target=${_CONDOR_JOB_IWD} uproot==5.1.2
+/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} uproot==5.1.2
 # echo "pip install --target=${_CONDOR_JOB_IWD} uproot4"
 # pip install --target=${_CONDOR_JOB_IWD} uproot4
 # echo "pip install --target=${_CONDOR_JOB_IWD} uproot3"
 # pip install --target=${_CONDOR_JOB_IWD} uproot3
 echo "pip install --target=${_CONDOR_JOB_IWD} torch"
-pip install --target=${_CONDOR_JOB_IWD} torch
+/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} torch
 
 echo "pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3"
-pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3
+/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/pip install --target=${_CONDOR_JOB_IWD} scipy==1.11.3
 
 echo "python version: "
 python --version
@@ -61,9 +62,9 @@ echo "ls -l _CONDOR_JOB_IWD"
 ls -l ${_CONDOR_JOB_IWD}
 
 # Symlink the desired file to the current directory
-ln -s ${INPUT_TAR_DIR_LOCAL}/FD_maketree.py .
+ln -s ${INPUT_TAR_DIR_LOCAL}/make_tree_fd.py .
 ln -s ${INPUT_TAR_DIR_LOCAL}/muonEff30.nn .
-ln -s ${INPUT_TAR_DIR_LOCAL}/muonEffModel.py .
+ln -s ${INPUT_TAR_DIR_LOCAL}/muon_eff_model.py .
 #echo "Did the symlink"
 
 
