@@ -249,7 +249,7 @@ void ProcessFile(TFile *fHad, TFile *fMu){
   bool useCombinedEfficiency = true; //set to false if only hadron eff desired
   bool scaleToCombinedEfficiency = false; //set to false if hadron eff scaling is desired
   //File with coefficients histogram
-  TFile* FileWithCoeffs = new TFile("FileWithCoeffsNuMu.root", "READ");
+  TFile* FileWithCoeffs = new TFile("data/step3/FileWithCoeffsNuMu.root", "READ");
   FileWithCoeffs->cd();
   TH1D* CoefficientsHist = (TH1D*) FileWithCoeffs->Get("CoeffPRISMUpTo3mOA");
   CoefficientsHist->SetDirectory(0);
@@ -460,7 +460,7 @@ void ProcessFile(TFile *fHad, TFile *fMu){
   TH2D* CoefficientsAtOAPosHist = new TH2D("CoefficientsAtOAPosHist", "CoefficientsAtOAPosHist", 67, -30.5, 3, 60, -0.3, 0.3);
 
 
-  TFile* FileWithHistoInfo = new TFile("FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root", "RECREATE");
+  TFile* FileWithHistoInfo = new TFile("data/step3/FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root", "RECREATE");
   FileWithHistoInfo->cd();
 
   // Or oscillated, in this case using reasonable parameters from
