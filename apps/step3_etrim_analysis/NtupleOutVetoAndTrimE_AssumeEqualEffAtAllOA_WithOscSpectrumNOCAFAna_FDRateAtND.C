@@ -261,8 +261,8 @@ void ProcessFile(TFile *fHad, TFile *fMu){
   FunctionCache cacheEtrue;
 
   // Load functions from the ROOT file (only do this once)
-  cacheLepHad.loadFunctions("Splines_FDEventRateAtND.root", FunctionType::LepHad);
-  cacheEtrue.loadFunctions("Splines_FDEventRateAtND_ETrue.root", FunctionType::ETrue);
+  cacheLepHad.loadFunctions("data/step3/Splines_FDEventRateAtND.root", FunctionType::LepHad);
+  cacheEtrue.loadFunctions("data/step3/Splines_FDEventRateAtND_ETrue.root", FunctionType::ETrue);
 
   // LoadFDEventRateData("Splines_FDEventRateAtND.root");
   cout<<" called fdevrate fct"<<endl;

@@ -253,8 +253,8 @@ void ProcessFile(TFile *fHad, TFile *fMu){
   FunctionCache cacheEtrue;
 
   // Load functions from the ROOT file (only do this once)
-  cacheLepHad.loadFunctions("Splines_FDEventRateAtND.root", FunctionType::LepHad);
-  cacheEtrue.loadFunctions("Splines_FDEventRateAtND_ETrue.root", FunctionType::ETrue);
+  cacheLepHad.loadFunctions("data/step3/Splines_FDEventRateAtND.root", FunctionType::LepHad);
+  cacheEtrue.loadFunctions("data/step3/Splines_FDEventRateAtND_ETrue.root", FunctionType::ETrue);
 
   // 0. FD: read event from FD MC ntuple: before earth curvature rotation
   vector<Double_t> a_ND_off_axis_pos_vec = {0, -1.75, -2, -4, -5.75, -8, -9.75, -12, -13.75, -16, -17.75, -20, -21.75, -24, -25.75, -26.25, -28, -28.25, -28.5};
