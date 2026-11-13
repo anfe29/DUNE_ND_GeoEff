@@ -27,7 +27,7 @@ pwd
 #cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 echo "Moving contents of tarball to: ${_CONDOR_JOB_IWD}"
 cp -r ${INPUT_TAR_DIR_LOCAL}/* ${_CONDOR_JOB_IWD}
-echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff/Grid"
+echo "cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff"
 cd ${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 echo "source scripts/env/setup_step3.sh"
 source scripts/env/setup_step3.sh
