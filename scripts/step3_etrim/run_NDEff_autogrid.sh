@@ -33,8 +33,8 @@ fi
 echo "Finished run setupNDEff-grid.sh"
 
 # Go back to the top-level directory since we know that's writable
-echo "cd _CONDOR_JOB_IWD: ${_CONDOR_JOB_IWD}"
-cd ${_CONDOR_JOB_IWD}
+#echo "cd _CONDOR_JOB_IWD: ${_CONDOR_JOB_IWD}"
+#cd ${_CONDOR_JOB_IWD}
 
 echo "ls _CONDOR_JOB_IWD"
 ls

@@ -4,7 +4,8 @@ echo "Running on $(hostname) at ${GLIDEIN_Site}. GLIDEIN_DUNESite = ${GLIDEIN_DU
 
 # Set the output location for copyback
 #OUTDIR=/pnfs/dune/persistent/users/${GRID_USER}/FDGeoEffinND
-OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/OscSpectrumNonNegativeEvRateVals
+#OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/EtrimAnalysis_FromFDGeoEffinND/CombinedEffWithCAFLikeMuCuts/AllOAPosEtrueProb/OscSpectrumNonNegativeEvRateVals
+OUTDIR=/pnfs/dune/scratch/users/${GRID_USER}/test/output_test
 
 # Make sure we see what we expect
 echo "See where are at: pwd"
@@ -33,8 +34,8 @@ fi
 echo "Finished run setupNDEff-grid.sh"
 
 # Go back to the top-level directory since we know that's writable
-echo "cd _CONDOR_JOB_IWD: ${_CONDOR_JOB_IWD}"
-cd ${_CONDOR_JOB_IWD}
+#echo "cd _CONDOR_JOB_IWD: ${_CONDOR_JOB_IWD}"
+#cd ${_CONDOR_JOB_IWD}
 
 echo "ls _CONDOR_JOB_IWD"
 ls
