@@ -416,7 +416,7 @@ void ProcessFile(TFile *fHad, TFile *fMu){
   TH2D* CoefficientsAtOAPosHist = new TH2D("CoefficientsAtOAPosHist", "CoefficientsAtOAPosHist", 67, -30.5, 3, 60, -0.3, 0.3);
 
 
-  TFile* FileWithHistoInfo = new TFile("data/step3/FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_AllOAPos.root", "RECREATE");
+  TFile* FileWithHistoInfo = new TFile("FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_AllOAPos.root", "RECREATE");
   FileWithHistoInfo->cd();
 
   // Or oscillated, in this case using reasonable parameters from
