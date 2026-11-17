@@ -115,6 +115,9 @@ if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_FDEvRateAtND_NDFV4m_NoOsc_NoCoef
     echo "Error during output copyback. See output logs."
     exit $IFDH_RESULT
   fi
+else
+  echo "Error, output file not found. Exiting."
+  exit 1
 fi
 
 #If we got this far, we succeeded.

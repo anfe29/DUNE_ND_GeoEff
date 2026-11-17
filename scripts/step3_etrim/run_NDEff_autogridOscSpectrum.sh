@@ -86,8 +86,10 @@ REPO=${_CONDOR_JOB_IWD}/DUNE_ND_GeoEff
 BIN=${REPO}/build/bin
 echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
 ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
-
 echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND"
+
+OUTPUT_FILE=FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root
+
 #echo "${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu"
 #${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND $myinfilehadron $myinfilemu
 
@@ -95,6 +97,7 @@ echo "Finish ${BIN}/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumN
 
 # Unique name in case we send multiple jobs.
 #OUTFILE=EtrimHistosFile_CoeffsOsc_OAPosSameAsCAFs_MuonCombined_VisEtrim_FDEvRateAtND_NDFV4m_CorrectCombinedEffScaled_AddMuMass_${CLUSTER}_${PROCESS}.root
+
 
 OUTFILE=FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtNDFromEtrue_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut_${CLUSTER}_${PROCESS}.root
 if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_2DHistosWithSelectedAndThrownEvents_WithCAFLikeMuCut.root ]; then
@@ -112,6 +115,9 @@ if [ -f FileWithHistEtrim_MuAndHaddEff_VisEtrim_WithOscProb_FDEvRateAtND_NDFV4m_
     echo "Error during output copyback. See output logs."
     exit $IFDH_RESULT
   fi
+else
+  echo "Error, output file not found. Exiting."
+  exit 1
 fi
 
 #If we got this far, we succeeded.
