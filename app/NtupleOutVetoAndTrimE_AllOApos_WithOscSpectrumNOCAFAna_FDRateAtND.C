@@ -1,4 +1,4 @@
-#include "Calcs/Calcs.h"
+#include "Calcs.h"
 #include "OscLib/OscCalcPMNSOpt.h"
 
 #include "TFile.h"
@@ -23,7 +23,7 @@ using namespace std;
 #include <stdlib.h>
 #include <math.h>
 #include <vector> // Need this for generate dictionary for nested vectors
-#include "Helpers.h"
+#include "step3_helpers.h"
 
 
 //define function type, i.e want LepHad or Etrue FDEventRateAtND probability

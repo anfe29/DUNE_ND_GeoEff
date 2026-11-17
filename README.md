@@ -2,14 +2,14 @@
 
 This repository contains the three-stage DUNE ND geometric-efficiency workflow:
 
-1. **Step 1 — hadron geometric efficiency** (`apps/step1_hadron_geoeff/`)
-2. **Step 2 — muon/combined efficiency** (`python/ndgeoeff/step2_muon/`)
-3. **Step 3 — Etrim/PRISM event-rate analysis** (`apps/step3_etrim_analysis/`)
+1. **Step 1 — hadron geometric efficiency** (`app/`, `include/`, `src/`)
+2. **Step 2 — muon/combined efficiency** (`app/`)
+3. **Step 3 — Etrim/PRISM event-rate analysis** (`app/`, `include/`, `src/`)
 
-The layout is language-oriented. C++ sources live under `src/`, `include/`, and
-`apps/`; Python code lives under `python/ndgeoeff/`; ROOT macros live under
-`macros/`; operational scripts live under `scripts/`; and step 3 data lives under
-`data/step3/`.
+The layout is language-oriented. Executables and Python code live in the flat
+`app/` directory; shared C++ headers and sources live under `include/` and
+`src/`; ROOT macros live under `macros/`; operational scripts live under
+`scripts/`; and step data lives under `data/step1/` and `data/step3/`.
 
 ## Environment
 
@@ -59,7 +59,7 @@ To calculate the FD hadron containment efficiency from that output:
 root -l -b -q macros/step1_hadron/FDEffCalc.C
 ```
 
-Grid submission scripts can be found [here](scripts/step1_hadron/).
+Grid submission scripts can be found [here](scripts/grid/step1_hadron/).
 
 ## Step 2 — muon/combined efficiency
 
@@ -69,34 +69,29 @@ After starting an Apptainer source environment:
 source scripts/env/setup_step2.sh
 ```
 
-To prepare python environment, make directory:
+Install the Python dependencies into `my_python_env` (the setup script adds it
+to `PYTHONPATH`):
 
 ```bash
-mkdir my_python_env
+bash scripts/env/setup_python_env.sh
 ```
 
-Install the Python dependencies:
-
+Run the FD code with:
 ```bash
-pip install numpy==1.26.1 uproot==5.1.2 torch scipy==1.11.3 --target=$(pwd)/my_python_env
+python app/make_tree_fd.py InputRootFile.root
 ```
 
-Export `PYTHONPATH`:
-
+Or use the local wrapper:
 ```bash
-export PYTHONPATH=$(pwd)/my_python_env:$PYTHONPATH
-```
-
-Run the code with:
-```bash
-python python/ndgeoeff/step2_muon/make_tree_fd.py InputRootFile.root
+scripts/env/run_local_step2.sh fd InputRootFile.root
+scripts/env/run_local_step2.sh nd InputCAFFile.root
 ```
 
 The ND script writes `Output_NDGeoEff.root`; the FD script writes
 `Output_FDGeoEff.root`. The trained network is bundled at
-`python/ndgeoeff/step2_muon/assets/muonEff30.nn`.
+`app/assets/muonEff30.nn`.
 
-Grid and Slurm scripts are located [here](scripts/step2_muon/).
+Grid and Slurm scripts are located [here](scripts/grid/step2_muon/).
 
 ## Step 3 — Etrim/PRISM analysis
 
@@ -140,7 +135,7 @@ Available executables:
 - `NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND`
 - `NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND`
 
-Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here](scripts/step3_etrim/).
+Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here](scripts/grid/step3_etrim/).
 
 ## Macros
 
@@ -154,14 +149,14 @@ Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here]
 >Under Construction
 
 ```bash
-PYTHONPATH=python python3 -m pytest tests/unit
+PYTHONPATH=. python3 -m pytest tests/unit
 ```
 
 See `tests/integration/README.md` for the full three-stage smoke-test procedure.
 
 ## Build
 
-Steps 1 and 2 (library and hadron-efficiency apps):
+Step 1 (shared library and hadron-efficiency apps):
 
 ```bash
 cmake -S . -B build -DNDGEOEFF_BUILD_STEP3=OFF
@@ -185,7 +180,7 @@ cmake -S . -B build-step3 \
 cmake --build build-step3 -j
 ```
 
-The original `apps/step3_etrim_analysis/Makefile` is kept as a fallback.
+The original step 3 `Makefile` is kept at `app/Makefile` as a fallback.
 
 ## Legacy files
 
@@ -195,5 +190,5 @@ Duplicated and experimental files from the previous layout are preserved under
 ## Additional documentation
 
 The detailed physics workflow written by Ionna is described in [documentation](doc/README.md). Stage-specific legacy grid submission
-notes are in [Step1](scripts/step1_hadron/README.md),
-[Step2](scripts/step2_muon/README.md), and [Step3](scripts/step3_etrim/README.md).
+notes are in [Step1](scripts/grid/step1_hadron/README.md),
+[Step2](scripts/grid/step2_muon/README.md), and [Step3](scripts/grid/step3_etrim/README.md).

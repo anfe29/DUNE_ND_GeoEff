@@ -18,14 +18,15 @@ dependencies = [
 ]
 
 [project.scripts]
-ndgeoeff-nd = "ndgeoeff.step2_muon.make_tree_nd:main"
-ndgeoeff-fd = "ndgeoeff.step2_muon.make_tree_fd:main"
+ndgeoeff-nd = "app.make_tree_nd:main"
+ndgeoeff-fd = "app.make_tree_fd:main"
 
 [tool.setuptools]
-package-dir = {"" = "python"}
+package-dir = {"" = "."}
 
 [tool.setuptools.packages.find]
-where = ["python"]
+where = ["."]
+include = ["app"]
 
 [tool.setuptools.package-data]
-"ndgeoeff.step2_muon" = ["assets/*.nn"]
+"app" = ["assets/*.nn"]

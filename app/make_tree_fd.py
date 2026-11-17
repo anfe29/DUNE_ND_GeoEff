@@ -12,7 +12,7 @@ import sys
 
 import torch
 try:
-    from muon_eff_model import muonEffModel
+    from .muon_eff_model import muonEffModel
 except ImportError:
     from muon_eff_model import muonEffModel
 from os.path import splitext, basename#, exists

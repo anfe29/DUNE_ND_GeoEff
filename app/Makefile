@@ -2,7 +2,7 @@
 CXX = g++
 
 # includes and library paths
-INCLUDES = -I./Calcs -I$(OSCLIB_INC) -I $(EIGEN_INC)
+INCLUDES = -I../include -I$(OSCLIB_INC) -I $(EIGEN_INC)
 LIBS = -L$(OSCLIB_LIB) -lOscLib
 
 #compile and link flags
@@ -19,7 +19,7 @@ OBJS1 = $(SRCS1:.C=.o)
 TARGET2 = NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND 
 # Source files
 SRCS2 = NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND.C \
-       Calcs/Calcs.cxx
+       ../src/Calcs.cxx
 
 # Object files
 OBJS2 = $(SRCS2:.C=.o)
@@ -29,7 +29,7 @@ OBJS2 := $(OBJS2:.cxx=.o)
 TARGET3 = NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND 
 # Source files
 SRCS3 = NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND.C \
-       Calcs/Calcs.cxx
+       ../src/Calcs.cxx
 
 # Object files
 OBJS3 = $(SRCS3:.C=.o)
@@ -48,8 +48,6 @@ $(TARGET3): $(OBJS3)
 
 # Rule for creating object files
 %.o: %.C
-	$(CXX) -c $< -o $@ $(CXXFLAGS)
-%.o: %.cxx
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 %.o: %.cxx
 	$(CXX) -c $< -o $@ $(CXXFLAGS)

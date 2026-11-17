@@ -1,12 +1,12 @@
-> Paths in this document refer to the legacy `code/` layout. In the current layout the Python package is under `python/ndgeoeff/step2_muon/`, the model asset is `python/ndgeoeff/step2_muon/assets/muonEff30.nn`, macros are under `macros/step2_muon/`, and these scripts are under `scripts/step2_muon/`.
+> Paths in this document refer to the legacy `code/` layout. In the current layout the Python code is in the flat `app/` package, the model asset is `app/assets/muonEff30.nn`, macros are under `macros/step2_muon/`, and these scripts are under `scripts/grid/step2_muon/`.
 
 # Run Muon Efficiency code interactively on Fermi Grid (Ioana README)
 
 --- my folder on the grid is at ```/exp/dune/app/users/icaracas/NDEff/DUNE_PRISM_GEC_ND``` , but one can simply clone the github code at: https://github.com/icaracas/DUNE_ND_GeoEff/tree/MuonCode
 
 
-the code for running is: ```python/ndgeoeff/step2_muon/make_tree_fd.py```.
-once the setups is done simply run as: ```PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_fd InputRootFile.root```
+the code for running is: ```app/make_tree_fd.py```.
+once the setups is done simply run as: ```PYTHONPATH=. python3 -m app.make_tree_fd InputRootFile.root```
 Remark: in the current setup the InputRootFile.root that is given to the muon efficiency code is the file obtained after having run the hadron efficiency part on the ntuples
 i.e we first run hadron efficiency using the Hadron Efficiency code, we get a resulting output file containing a lot of useful info (see the hadron efficiency part for more details about this)
 and then the output file from hadron efficiency is used as an input for the muon efficiency part
@@ -46,7 +46,7 @@ to setup things interactively:
 ```export PYTHONPATH=$(pwd)/my_python_env:$PYTHONPATH```
 
 6. Run With The Same Python Binary
-```/cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_fd InputRootFile.root```
+```PYTHONPATH=. /cvmfs/larsoft.opensciencegrid.org/products/python/v3_9_15/Linux64bit+3.10-2.17/bin/python3 -m app.make_tree_fd InputRootFile.root```
 
 
 # Old READNE from Flyn:
@@ -97,7 +97,7 @@ Please avoid reading from, copying from, or writing massive amount of files dire
 If you want to run code interactively on ```dunegpvm*``` for debugging, follow instruction in this section.
 ```
 cd DUNE_PRISM_GEC_ND/code
-PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_nd /pnfs/dune/persistent/physicsgroups/dunelbl/abooth/PRISM/Production/Simulation/ND_CAFMaker/v7/CAF/0mgsimple/101/FHC.1101999.CAF.root
+PYTHONPATH=. python3 -m app.make_tree_nd /pnfs/dune/persistent/physicsgroups/dunelbl/abooth/PRISM/Production/Simulation/ND_CAFMaker/v7/CAF/0mgsimple/101/FHC.1101999.CAF.root
 ```
 
 #### 3.1 Submit grid job (Geometric efficiency for ND events at ND)
@@ -174,7 +174,7 @@ The following scripts are used to produce raw, selected, and efficiency-correcte
 
 Run the script using python3, this creates a TTree containing all efficiency information:
 ```
-PYTHONPATH=python python3 -m ndgeoeff.step2_muon.make_tree_nd [folder]/[subfolder]
+PYTHONPATH=. python3 -m app.make_tree_nd [folder]/[subfolder]
 ```
 A batch submission is also available, it usually takes half a day to complete:
 ```
@@ -201,7 +201,7 @@ There will be a set of all graphs available, and a copy of each of those graphs 
 ### II. Get FD eff files
 Run this script:
 ```
-python3 /home/fyguo/DUNE_PRISM_GEC_ND/python/ndgeoeff/step2_muon/make_tree_fd.py
+python3 app/make_tree_fd.py
 ```
 This generates efficiency files for far detector events.
 

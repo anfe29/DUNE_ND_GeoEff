@@ -38,7 +38,7 @@ using namespace std;
 #include <vector> // Need this for generate dictionary for nested vectors
 
 // Include customized functions and constants
-#include "Helpers.h"
+#include "step1_helpers.h"
 
 // Pick six evenly spaced points in each non-dead region
 vector<double> generatePoints(double start)

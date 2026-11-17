@@ -5,8 +5,8 @@ APP="${1:-NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRa
 shift || true
 
 BIN_DIR="${STEP3_BIN_DIR:-${REPO_ROOT}/build/bin}"
-if [ ! -x "${BIN_DIR}/${APP}" ] && [ -x "${REPO_ROOT}/apps/step3_etrim_analysis/${APP}" ]; then
-  BIN_DIR="${REPO_ROOT}/apps/step3_etrim_analysis"
+if [ ! -x "${BIN_DIR}/${APP}" ] && [ -x "${REPO_ROOT}/app/${APP}" ]; then
+  BIN_DIR="${REPO_ROOT}/app"
 fi
 if [ ! -x "${BIN_DIR}/${APP}" ]; then
   echo "Executable not found: ${BIN_DIR}/${APP}" >&2

@@ -17,11 +17,11 @@ Where this command changes the path so that the worker node can access the files
 Make tarball:
 
 ```bash
-tar -czvf FD_work.tar.gz setup_FDcombEff.sh make_tree_fd.py assets muon_eff_model.py FDCAFs.txt
+tar -czvf FD_work.tar.gz setup_FDcombEff.sh app FDCAFs.txt
 ```
 
 >[!NOTE]
->One can simply copy the necessary files from `python/ndgeoeff/step2_muon/` to wherever one makes the tarball, from the cloned repository. 
+>Copy the flat `app/` directory from the cloned repository into the tarball working directory.
 
 Submit jobs:
 ```bash

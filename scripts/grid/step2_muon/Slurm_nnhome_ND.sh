@@ -10,6 +10,6 @@
 #!/bin/bash
 
 cd "${NDGEOEFF_ROOT:?Set NDGEOEFF_ROOT to the repository root}"
-export PYTHONPATH="$PWD/python:${PYTHONPATH:-}"
-python3 -m ndgeoeff.step2_muon.make_tree_nd $1
+export PYTHONPATH="$PWD:${PYTHONPATH:-}"
+python3 -m app.make_tree_nd $1
 wait

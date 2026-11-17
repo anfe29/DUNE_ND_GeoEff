@@ -32,11 +32,4 @@ if(NDGEOEFF_BUILD_PYTHON)
 endif()
 
 add_subdirectory(src)
-
-if(NDGEOEFF_BUILD_STEP1)
-  add_subdirectory(apps/step1_hadron_geoeff)
-endif()
-
-if(NDGEOEFF_BUILD_STEP3)
-  add_subdirectory(apps/step3_etrim_analysis)
-endif()
+add_subdirectory(app)

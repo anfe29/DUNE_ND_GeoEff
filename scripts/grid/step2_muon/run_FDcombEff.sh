@@ -61,11 +61,7 @@ which root
 echo "ls -l _CONDOR_JOB_IWD"
 ls -l ${_CONDOR_JOB_IWD}
 
-# Symlink the desired file to the current directory
-ln -s ${INPUT_TAR_DIR_LOCAL}/make_tree_fd.py .
-ln -s ${INPUT_TAR_DIR_LOCAL}/muonEff30.nn .
-ln -s ${INPUT_TAR_DIR_LOCAL}/muon_eff_model.py .
-#echo "Did the symlink"
+# The tarball contains the flat app/ directory.
 
 
 setup ifdhc
@@ -113,8 +109,8 @@ ifdh cp -D $myinfile ${_CONDOR_JOB_IWD}
 echo "ls -l _CONDOR_JOB_IWD"
 ls -l ${_CONDOR_JOB_IWD}
 
-echo "python3 make_tree_fd.py ./*.root"
-python3 make_tree_fd.py ./*.root
+echo "python3 ${INPUT_TAR_DIR_LOCAL}/app/make_tree_fd.py ./*.root"
+python3 ${INPUT_TAR_DIR_LOCAL}/app/make_tree_fd.py ./*.root
 LAR_RESULT=$?   # check the exit status!!!
 
 if [ $LAR_RESULT -ne 0 ]; then

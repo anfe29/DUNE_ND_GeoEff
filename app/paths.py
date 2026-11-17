@@ -1,6 +1,6 @@
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = REPO_ROOT / "data"
 STEP3_DATA_DIR = DATA_DIR / "step3"
 EXAMPLES_DIR = DATA_DIR / "examples"

@@ -15,4 +15,4 @@ setup osclib v00.27 -q e26:prof:n319:stanfree
 export OSCLIB_INC="${OSCLIB_INC:-${OSCLIB_ROOT}/include}"
 export OSCLIB_LIB="${OSCLIB_LIB:-${OSCLIB_ROOT}/lib}"
 _NDGEOEFF_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-export PYTHONPATH="${_NDGEOEFF_ROOT}/python:${PYTHONPATH:-}"
+export PYTHONPATH="${_NDGEOEFF_ROOT}:${PYTHONPATH:-}"

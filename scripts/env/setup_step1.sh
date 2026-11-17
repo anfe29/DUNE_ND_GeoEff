@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Shared DUNE environment for building NDGeoEff and running all three stages.
+# Step 1 environment: CMake, GCC, Eigen, and ROOT 6.28.
 # Override NDGEOEFF_PYTHON_VERSION if your DUNE release provides another Python 3.
 
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
@@ -10,8 +10,8 @@ setup eigen v3_3_5
 setup root v6_28_10b -q e20:p3915:prof
 #setup python "${NDGEOEFF_PYTHON_VERSION:-v3_9_15}"
 
-#_NDGEOEFF_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-#export PYTHONPATH="${_NDGEOEFF_ROOT}/python:${_NDGEOEFF_ROOT}/lib:${PYTHONPATH:-}"
+#_NDGEOEFF_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+#export PYTHONPATH="${_NDGEOEFF_ROOT}:${_NDGEOEFF_ROOT}/lib:${PYTHONPATH:-}"
 
 which gcc
 which root

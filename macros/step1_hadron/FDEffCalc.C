@@ -38,7 +38,8 @@ using namespace std;
 #include <vector>
 
 // Include customized functions and constants
-#include "Helpers.h"
+R__ADD_INCLUDE_PATH(include)
+#include "step1_helpers.h"
 
 void FDEffCalc() {
 
@@ -108,7 +109,7 @@ void FDEffCalc() {
   // Initialize histograms
   //
 
-  // Set the number of histograms using variables defined in Helpers.h
+  // Set the number of histograms using variables defined in step1_helpers.h
   int nplot = ( OffAxisPoints[13] - OffAxisPoints[0] ) / ND_off_axis_pos_stepsize + 1; // Avoid the plot for random element
   int mplot = ( ND_local_x_max - ND_local_x_min ) / ND_local_x_stepsize + 1;
 

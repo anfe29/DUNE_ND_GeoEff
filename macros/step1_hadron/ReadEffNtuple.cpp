@@ -39,7 +39,8 @@ using namespace std;
 using namespace std;
 
 // Include customized functions and constants
-#include "Helpers.h"
+R__ADD_INCLUDE_PATH(include)
+#include "step1_helpers.h"
 
 void ReadEffNtuple()
 {

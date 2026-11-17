@@ -7,7 +7,7 @@ pytest.importorskip("uproot")
 pytest.importorskip("uproot3")
 pytest.importorskip("uproot4")
 
-from ndgeoeff.step2_muon.make_tree_nd import isContained, isFV
+from app.make_tree_nd import isContained, isFV
 
 
 def test_fiducial_volume_accepts_center():

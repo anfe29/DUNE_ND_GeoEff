@@ -1,4 +1,4 @@
-> Paths in this document refer to the legacy `app/` layout. In the current layout the step 1 sources are under `apps/step1_hadron_geoeff/`, macros under `macros/step1_hadron/`, and the CMake build outputs executables in `build/bin/`.
+> Paths in this document refer to the legacy `app/` layout. In the current layout the step 1 sources are under `app/`, headers under `include/`, macros under `macros/step1_hadron/`, and the CMake build outputs executables in `build/bin/`.
 
 # 🟢 How to Submit Jobs for the Geometric Efficiency
 This guide explains how to submit **Hadron Geometric Efficiency** jobs on the Fermi computing grid.

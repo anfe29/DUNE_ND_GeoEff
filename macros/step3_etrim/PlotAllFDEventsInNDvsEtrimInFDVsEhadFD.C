@@ -38,7 +38,8 @@
 #include <vector> // Need this for generate dictionary for nested vectors
 using namespace std;
 // Include customized functions and constants
-#include "Helpers.h"
+R__ADD_INCLUDE_PATH(include)
+#include "step3_helpers.h"
 
 void PlotAllFDEventsInNDvsEtrimInFDVsEhadFD()
 {
