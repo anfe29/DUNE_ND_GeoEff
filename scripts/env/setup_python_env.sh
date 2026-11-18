@@ -9,8 +9,6 @@ mkdir -p "${TARGET}"
 python3 -m pip install --target="${TARGET}" \
   numpy==1.26.1 \
   uproot==5.1.2 \
-  uproot3 \
-  uproot4 \
   torch \
   scipy==1.11.3
 
