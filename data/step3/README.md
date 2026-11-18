@@ -4,5 +4,12 @@ The step 3 executables read several inputs by relative filename (for example
 `FileWithCoeffsNuMu.root`, `Splines_FDEventRateAtND.root`, and
 `PRISMPred_*.root`) and write outputs into the current working directory.
 
-Run them from this directory, or use `scripts/env/run_local_step3.sh`, which
-changes into this directory before executing the selected binary.
+Run them from this directory, for example:
+
+```bash
+cd data/step3
+../../build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND <args>
+```
+
+If built with `app/Makefile`, the binaries are in `app/`; run
+`../../app/<APP>` from this directory instead.

@@ -76,15 +76,10 @@ to `PYTHONPATH`):
 bash scripts/env/setup_python_env.sh
 ```
 
-Run the FD code with:
+Run the FD or ND code with:
 ```bash
 python app/make_tree_fd.py InputRootFile.root
-```
-
-Or use the local wrapper:
-```bash
-scripts/env/run_local_step2.sh fd InputRootFile.root
-scripts/env/run_local_step2.sh nd InputCAFFile.root
+python app/make_tree_nd.py InputCAFFile.root
 ```
 
 The ND script writes `Output_NDGeoEff.root`; the FD script writes
@@ -95,8 +90,8 @@ Grid and Slurm scripts are located [here](scripts/grid/step2_muon/).
 
 ## Step 3 — Etrim/PRISM analysis
 
-Step 3 reads and writes several files by relative name. Run it from
-`data/step3/`, or use the wrapper, which changes into that directory:
+Step 3 reads and writes several files by relative name, so run the executables
+from `data/step3/`:
 
 After starting an Apptainer source environment:
 
@@ -116,17 +111,18 @@ cmake --build build-step3 -j
 Assuming equal effect on all off-axis positions (this might be depreciated), run with:
  
 ```bash
-build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+cd data/step3
+../../build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 Or with osccillations:
 ```bash 
-build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+../../build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 With all off-axis positions:
 ```bash
-build-step3/bin/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+../../build-step3/bin/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 Available executables:
