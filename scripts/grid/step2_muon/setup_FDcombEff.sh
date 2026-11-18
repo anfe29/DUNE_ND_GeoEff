@@ -1,29 +1,22 @@
 #!/bin/bash
+set -e
 
-# we cannot rely on "whoami" in a grid job. We have no idea what the local username will be.
-# Use the GRID_USER environment variable instead (set automatically by jobsub).
-USERNAME=${GRID_USER}
-echo "Got username"
-source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
-# this enables pip install afterwards
-#setup dunetpc v09_41_00_02 -q e20:prof
-#echo "dunetpc is set"
-#setup root v6_28_12 -q e26:p3915:prof
-#echo " root setup"
-echo "setup root v6_28_10b -q e20:p3915:prof"
-setup root v6_28_10b -q e20:p3915:prof
+BUNDLE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+export NDGEOEFF_BUNDLE_ROOT="${BUNDLE_ROOT}"
+export WORKDIR="${_CONDOR_JOB_IWD:-$PWD}"
 
-echo "which pip"
-which pip
+source "${BUNDLE_ROOT}/scripts/env/setup_step2.sh"
 
-export WORKDIR=${_CONDOR_JOB_IWD} # if we use the RCDS the localProducts area will be placed in $CONDOR_DIR_INPUT
-if [ ! -d "$WORKDIR" ]; then
-  export WORKDIR=`echo ~`
+export PYTHONPATH="${BUNDLE_ROOT}:${PYTHONPATH:-}"
+
+if [ -d "${BUNDLE_ROOT}/python_env" ]; then
+  export PYTHONPATH="${BUNDLE_ROOT}/python_env:${PYTHONPATH}"
 fi
 
-# _CONDOR_JOB_IWD is /srv
-echo "Check work dir _CONDOR_JOB_IWD: ls -l ${_CONDOR_JOB_IWD}"
-ls -l ${_CONDOR_JOB_IWD}
-
-echo "See where are we: pwd"
-pwd
+if [ -n "${NDGEOEFF_PYTHON_ENV:-}" ]; then
+  if [ ! -d "${NDGEOEFF_PYTHON_ENV}" ]; then
+    echo "Error, NDGEOEFF_PYTHON_ENV is not a directory: ${NDGEOEFF_PYTHON_ENV}"
+    exit 1
+  fi
+  export PYTHONPATH="${NDGEOEFF_PYTHON_ENV}:${PYTHONPATH}"
+fi
