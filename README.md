@@ -111,18 +111,17 @@ cmake --build build-step3 -j
 Assuming equal effect on all off-axis positions (this might be depreciated), run with:
  
 ```bash
-cd data/step3
-../../build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_NOOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 Or with osccillations:
 ```bash 
-../../build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+build-step3/bin/NtupleOutVetoAndTrimE_AssumeEqualEffAtAllOA_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 With all off-axis positions:
 ```bash
-../../build-step3/bin/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
+build-step3/bin/NtupleOutVetoAndTrimE_AllOApos_WithOscSpectrumNOCAFAna_FDRateAtND HadronOutputFile  MuonOutputFile
 ```
 
 Available executables:
@@ -145,7 +144,7 @@ Analysis macros are in `macros/step3_etrim/`. Grid submission scripts are [here]
 >Under Construction
 
 ```bash
-PYTHONPATH=. python3 -m pytest tests/unit
+python3 -m pytest tests/unit
 ```
 
 See `tests/integration/README.md` for the full three-stage smoke-test procedure.
