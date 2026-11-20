@@ -26,7 +26,8 @@ To avoid installing Python dependencies in every job, create a reusable target d
 
 ```bash
 python3 -m pip install --target=/path/to/ndgeoeff-pyenv numpy==1.26.1 uproot==5.1.2 torch scipy==1.11.3
-NDGEOEFF_PYTHON_ENV=/path/to/ndgeoeff-pyenv scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
+export NDGEOEFF_PYTHON_ENV=/path/to/ndgeoeff-pyenv 
+source scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
 ```
 
 If no preinstalled environment is provided, the job installs the dependencies in its own working directory as a fallback.

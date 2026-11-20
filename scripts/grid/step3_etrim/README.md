@@ -17,7 +17,8 @@ ls -d "/pnfs/dune/persistent/users/path/to/muon/files"/* | sed "s\/pnfs\root://f
 Create the runtime bundle:
 
 ```bash
-NDGEOEFF_BUILD_DIR=build-step3 scripts/grid/make_bundle.sh step3 TarEtrimAnalysis.tar.gz myOutputFDGeoEffHadron.txt myOutputFDGeoEffMu.txt
+export NDGEOEFF_BUILD_DIR=build-step3
+source scripts/grid/make_bundle.sh step3 TarEtrimAnalysis.tar.gz myOutputFDGeoEffHadron.txt myOutputFDGeoEffMu.txt
 ```
 
 The bundle contains the step 3 binaries, `data/step3`, the setup scripts, and the input lists. Worker jobs do not compile the code or copy the full repository. At run time the job creates a `data` symlink to the bundle so the fixed `data/step3/...` paths continue to work.

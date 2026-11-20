@@ -30,7 +30,7 @@ mkdir /pnfs/dune/scratch/users/path/to/output
 Create the runtime bundle:
 
 ```bash
-scripts/grid/make_bundle.sh step1 NDEff.tar.gz myFDntuples.txt
+source scripts/grid/make_bundle.sh step1 NDEff.tar.gz myFDntuples.txt
 ```
 
 The bundle contains `bin/runGeoEffFDEvtSim`, `lib/libgeoEff.so`, the setup scripts, and the input list. Worker jobs do not compile the code or copy the full repository.
