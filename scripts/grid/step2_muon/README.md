@@ -17,7 +17,7 @@ Where this command changes the path so that the worker node can access the files
 Create the runtime bundle:
 
 ```bash
-scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
+bash scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
 ```
 
 The flat `app/` directory is included automatically. Worker jobs use the bundle directly and do not copy the repository.
