@@ -76,6 +76,10 @@ to `PYTHONPATH`):
 bash scripts/env/setup_python_env.sh
 ```
 
+This installs CPU-only Torch by default, which is sufficient for both step 2
+scripts. Set `NDGEOEFF_TORCH_INDEX_URL` to a CUDA wheel index if GPU support is
+needed.
+
 Run the FD or ND code with:
 ```bash
 python app/make_tree_fd.py InputRootFile.root

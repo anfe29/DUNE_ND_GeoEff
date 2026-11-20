@@ -15,6 +15,9 @@ For step 3:
 
 Set NDGEOEFF_BUILD_DIR to override the build directory.
 For step 2, set NDGEOEFF_PYTHON_ENV to a preinstalled Python target directory to embed it.
+Create that environment with scripts/env/setup_python_env.sh, which installs
+CPU-only Torch by default. Set NDGEOEFF_TORCH_INDEX_URL to a CUDA wheel index
+only if the jobs need GPU support.
 EOF
 }
 
@@ -68,6 +71,9 @@ case "${STEP}" in
       if [[ ! -d "${NDGEOEFF_PYTHON_ENV}" ]]; then
         echo "NDGEOEFF_PYTHON_ENV is not a directory: ${NDGEOEFF_PYTHON_ENV}" >&2
         exit 1
+      fi
+      if [[ -d "${NDGEOEFF_PYTHON_ENV}/nvidia" ]]; then
+        echo "Warning: NDGEOEFF_PYTHON_ENV contains CUDA libraries; the bundle will be much larger." >&2
       fi
       cp -a "${NDGEOEFF_PYTHON_ENV}" "${DEST}/python_env"
     fi

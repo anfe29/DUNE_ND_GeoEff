@@ -25,12 +25,25 @@ The flat `app/` directory is included automatically. Worker jobs use the bundle 
 To avoid installing Python dependencies in every job, create a reusable target directory and embed it in the bundle:
 
 ```bash
-python3 -m pip install --target=/path/to/ndgeoeff-pyenv numpy==1.26.1 uproot==5.1.2 torch scipy==1.11.3
-export NDGEOEFF_PYTHON_ENV=/path/to/ndgeoeff-pyenv 
-source scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
+bash scripts/env/setup_python_env.sh /path/to/ndgeoeff-pyenv
+export NDGEOEFF_PYTHON_ENV=/path/to/ndgeoeff-pyenv
+scripts/grid/make_bundle.sh step2 FD_work.tar.gz FDCAFs.txt
 ```
 
-If no preinstalled environment is provided, the job installs the dependencies in its own working directory as a fallback.
+`setup_python_env.sh` installs CPU-only Torch by default, which is all
+`app/make_tree_fd.py` needs and keeps the bundle much smaller. Use a fresh
+target directory when switching from a CUDA environment; old CUDA packages are
+not removed automatically. If GPU support is required, point
+`NDGEOEFF_TORCH_INDEX_URL` at a CUDA wheel index before installing, for
+example:
+
+```bash
+NDGEOEFF_TORCH_INDEX_URL=https://download.pytorch.org/whl/cu124 \
+  bash scripts/env/setup_python_env.sh /path/to/ndgeoeff-pyenv
+```
+
+If no preinstalled environment is provided, the job installs the CPU
+dependencies in its own working directory as a fallback.
 
 Submit jobs:
 
